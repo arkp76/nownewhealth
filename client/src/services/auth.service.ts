@@ -48,11 +48,12 @@ export class AuthService {
    saveUserId(userid: string) {
   
     localStorage.setItem('userId',userid);
+    // localStorage.setItem('userId','valid-user-id');
   }
 
   getUserId(): number | null {//for better encapsulation
     const userIdString = localStorage.getItem('userId');
     return userIdString ? parseInt(userIdString, 10) : null;
   }
-
+  
 }

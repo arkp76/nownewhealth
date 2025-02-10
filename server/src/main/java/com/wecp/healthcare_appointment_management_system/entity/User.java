@@ -1,4 +1,4 @@
-// package com.wecp.healthcare_appointment_management_system.entity;
+package com.wecp.healthcare_appointment_management_system.entity;
 
 // import javax.persistence.Entity;
 // import javax.persistence.GeneratedValue;
@@ -60,6 +60,7 @@
 //         this.email = email;
 //     }
 // }
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -119,6 +120,7 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
 }
 
 

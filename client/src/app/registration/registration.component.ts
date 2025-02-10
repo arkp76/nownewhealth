@@ -69,7 +69,7 @@ export class RegistrationComponent implements OnInit//todo: complete missing cod
           }
         );
       } else if (role === 'DOCTOR') {
-        this.bookService.registerDoctor(formData).subscribe(
+        this.bookService.registerDoctors(formData).subscribe(
           response => {
             this.showMessage = true;
             this.responseMessage = 'Registration successful! Please log in.';

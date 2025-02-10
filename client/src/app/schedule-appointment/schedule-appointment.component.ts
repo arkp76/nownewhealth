@@ -62,20 +62,43 @@ export class ScheduleAppointmentComponent implements OnInit//todo: complete miss
     const date = this.itemForm.controls['date'].value;
     const time = this.itemForm.controls['time'].value;
     const dateTimeString = this.datePipe.transform(`${date}T${time}`, 'yyyy-MM-ddTHH:mm:ss');
-
     this.itemForm.controls['time'].setValue(dateTimeString);
-
-    this.httpService.ScheduleAppointment(this.itemForm.value).subscribe(
-      response => {
-        this.responseMessage = 'Appointment scheduled successfully!';
-        this.itemForm.reset();
-        this.isAdded = false;
-      },
-      error => {
-        console.error('Error scheduling appointment:', error);
-      }
-    );
+  
+    if (this.itemForm.valid) {
+      this.httpService.ScheduleAppointment(this.itemForm.value).subscribe(
+        response => {
+          this.responseMessage = 'Appointment scheduled successfully!';
+          this.itemForm.reset();
+          this.isAdded = false;
+        },
+        error => {
+          console.error('Error scheduling appointment:', error);
+        }
+      );
+    }
   }
+  
+
+  
+
+  // onSubmit() {
+  //   const date = this.itemForm.controls['date'].value;
+  //   const time = this.itemForm.controls['time'].value;
+  //   const dateTimeString = this.datePipe.transform(`${date}T${time}`, 'yyyy-MM-ddTHH:mm:ss');
+
+  //   this.itemForm.controls['time'].setValue(dateTimeString);
+
+  //   this.httpService.ScheduleAppointment(this.itemForm.value).subscribe(
+  //     response => {
+  //       this.responseMessage = 'Appointment scheduled successfully!';
+  //       this.itemForm.reset();
+  //       this.isAdded = false;
+  //     },
+  //     error => {
+  //       console.error('Error scheduling appointment:', error);
+  //     }
+  //   );
+  // }
 }
 
 

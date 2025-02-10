@@ -1,4 +1,3 @@
-
 package com.wecp.healthcare_appointment_management_system.jwt;
 
 import com.wecp.healthcare_appointment_management_system.entity.User;

@@ -72,8 +72,24 @@ public class UserService implements UserDetailsService {
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
-}
 
+    
+public User getUserById(Long userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        User user = optionalUser.orElseThrow(() -> new RuntimeException("User not found"));
+        return user;
+    }
+
+    public User updateUser(User user) {
+        Optional<User> optionalUser = userRepository.findById(user.getId());
+        User existingUser = optionalUser.orElseThrow(() -> new RuntimeException("User not found"));
+        // Update the user details
+        existingUser.setName(user.getName());
+        existingUser.setEmail(user.getEmail());
+        // Save the updated user
+        return userRepository.save(existingUser);
+    }
+}
 
 
 

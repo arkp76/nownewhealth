@@ -1,3 +1,25 @@
+<!-- <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+  <label for="doctor">Select Doctor:</label>
+  <select formControlName="doctorId">
+    <option *ngFor="let doctor of doctorList" [value]="doctor.id">{{ doctor.name }}</option>
+  </select>
+
+  <label for="date">Select Date:</label>
+  <input type="date" formControlName="date">
+
+  <label for="time">Select Time:</label>
+  <input type="time" formControlName="time">
+
+  <button type="submit">Schedule Appointment</button>
+</form>
+
+<div *ngIf="responseMessage">
+  {{ responseMessage }}
+</div> -->
+
+
+
+
 <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
   <label for="doctor">Select Doctor:</label>
   <select formControlName="doctorId">
