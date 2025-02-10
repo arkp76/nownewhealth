@@ -1,3 +1,8 @@
+ 
+
+
+
+
 package com.wecp.healthcare_appointment_management_system.controller;
 
 
@@ -21,99 +26,112 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-
+@RestController
 public class RegisterAndLoginController {
-    String token = jwtUtil.generateToken(userDetails);  // Make sure generateToken expects UserDetails
-
-
 
     @Autowired
     private UserService userService;
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private JwtUtil jwtUtil;
 
     @Autowired
-    private JwtUtil jwtUtil;
+    private AuthenticationManager authenticationManager;
 
 
     @PostMapping("/api/patient/register")
     public ResponseEntity<Patient> registerPatient(@RequestBody Patient patient) {
-        // register patient
-        Patient savedPatient = (Patient) userService.registerUser(patient);
-        return ResponseEntity.ok(savedPatient);
+        Patient registeredPatient = userService.registerPatient(patient);
+        return new ResponseEntity<>(registeredPatient, HttpStatus.CREATED);
     }
 
     @PostMapping("/api/doctors/register")
     public ResponseEntity<Doctor> registerDoctor(@RequestBody Doctor doctor) {
-        // register doctor
-        Doctor savedDoctor = (Doctor) userService.registerUser(doctor);
-        return ResponseEntity.ok(savedDoctor);
+        Doctor registerDoctor = userService.registerDoctor(doctor);
+        return new ResponseEntity<>(registerDoctor, HttpStatus.CREATED);
     }
 
     @PostMapping("/api/receptionist/register")
     public ResponseEntity<Receptionist> registerReceptionist(@RequestBody Receptionist receptionist) {
-       // register receptionist
-       Receptionist savedReceptionist = (Receptionist) userService.registerUser(receptionist);
-        return ResponseEntity.ok(savedReceptionist);
+        Receptionist registerReceptionist = userService.registerReceptionist(receptionist);
+        return new ResponseEntity<>(registerReceptionist, HttpStatus.CREATED);
     }
 
     @PostMapping("/api/user/login")
     public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest loginRequest) {
-      // login user and return jwt in LoginResponse object
-        // return 401 unauthorized if authentication fail
-        {
         try {
             authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                    loginRequest.getUsername(),
-                    loginRequest.getPassword()
-                )
+                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
             );
         } catch (AuthenticationException e) {
-            return ResponseEntity.status(401).build();
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid username or password", e);
         }
 
         final UserDetails userDetails = userService.loadUserByUsername(loginRequest.getUsername());
-        final String jwt = jwtUtil.generateToken(userDetails);
+        final String token = jwtUtil.generateToken(userDetails.getUsername());
 
         User user = userService.getUserByUsername(loginRequest.getUsername());
 
-        LoginResponse loginResponse = new LoginResponse(
-            user.getId(),
-            jwt,
-            user.getUsername(),
-            user.getEmail(),
-            user.getRole()
-        );
-
-        return ResponseEntity.ok(loginResponse);
-    }
+        return ResponseEntity.ok(new LoginResponse(user.getId(),token, user.getUsername(), user.getEmail(), user.getRole()));
     }
 }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // package com.wecp.healthcare_appointment_management_system.controller;
 
+// import com.wecp.healthcare_appointment_management_system.dto.LoginRequest;
+// import com.wecp.healthcare_appointment_management_system.dto.LoginResponse;
+// import com.wecp.healthcare_appointment_management_system.entity.Doctor;
+// import com.wecp.healthcare_appointment_management_system.entity.Patient;
+// import com.wecp.healthcare_appointment_management_system.entity.Receptionist;
 // import com.wecp.healthcare_appointment_management_system.entity.User;
-// import com.wecp.healthcare_appointment_management_system.service.UserService;
 // import com.wecp.healthcare_appointment_management_system.jwt.JwtUtil;
-// import com.wecp.healthcare_appointment_management_system.model.LoginRequest;
-// import com.wecp.healthcare_appointment_management_system.model.LoginResponse;
-
+// import com.wecp.healthcare_appointment_management_system.service.UserService;
 // import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.http.HttpStatus;
 // import org.springframework.http.ResponseEntity;
 // import org.springframework.security.authentication.AuthenticationManager;
 // import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-// import org.springframework.security.core.Authentication;
-// import org.springframework.security.core.context.SecurityContextHolder;
-// import org.springframework.web.bind.annotation.*;
+// import org.springframework.security.core.AuthenticationException;
+// import org.springframework.security.core.userdetails.UserDetails;
+// import org.springframework.web.bind.annotation.PostMapping;
+// import org.springframework.web.bind.annotation.RequestBody;
+// import org.springframework.web.bind.annotation.RestController;
+// import org.springframework.web.server.ResponseStatusException;
 
 // @RestController
-// @RequestMapping("/api/user")
 // public class RegisterAndLoginController {
 
+//     @Autowired
 //     private UserService userService;
 
 //     @Autowired
@@ -122,32 +140,67 @@ public class RegisterAndLoginController {
 //     @Autowired
 //     private JwtUtil jwtUtil;
 
-//     @PostMapping("/register/patient")
-//     public ResponseEntity<User> registerPatient(@RequestBody User user) {
-//         user.setRole("PATIENT");
-//         User registeredUser = userService.registerUser(user);
-//         }
-
-//     @PostMapping("/register/doctor")
-//     public ResponseEntity<User> registerDoctor(@RequestBody User user) {
-//         user.setRole("DOCTOR");
-//         User registeredUser = userService.registerUser(user);
-//         return ResponseEntity.ok(registeredUser);
+//     @PostMapping("/api/patient/register")
+//     public ResponseEntity<Patient> registerPatient(@RequestBody Patient patient) {
+//         Patient savedPatient = userService.registerPatient(patient);
+//         return ResponseEntity.ok(savedPatient);
 //     }
 
-//     @PostMapping("/register/receptionist")
-//     public ResponseEntity<User> registerReceptionist(@RequestBody User user) {
-//         user.setRole("RECEPTIONIST");
-//         User registeredUser = userService.registerUser(user);
-//         return ResponseEntity.ok(registeredUser);
+//     @PostMapping("/api/doctors/register")
+//     public ResponseEntity<Doctor> registerDoctor(@RequestBody Doctor doctor) {
+//         Doctor savedDoctor;
+//         try {
+//             savedDoctor = userService.registerDoctor(doctor);
+//         } catch (Exception e) {
+//             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Registration failed", e);
+//         }
+//         return ResponseEntity.ok(savedDoctor);
+//     }
+
+//     @PostMapping("/api/receptionist/register")
+//     public ResponseEntity<Receptionist> registerReceptionist(@RequestBody Receptionist receptionist) {
+//         Receptionist savedReceptionist = userService.registerReceptionist(receptionist);
+//         return ResponseEntity.ok(savedReceptionist);
 //     }
 
 //     @PostMapping("/login")
-//     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
-//         Authentication authentication = authenticationManager.authenticate(
-//                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-//         SecurityContextHolder.getContext().setAuthentication(authentication);
-//         userService.getUserByUsername(loginRequest.getUsername());
-//         return ResponseEntity.ok(new LoginResponse(user.getId(), jwt, user.getUsername(), user.getEmail(), user.getRole()));
+//     public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest loginRequest) {
+//         try {
+//             authenticationManager.authenticate(
+//                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
+//             );
+//         } catch (AuthenticationException e) {
+//             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid username or password", e);
+//         }
+
+//         final UserDetails userDetails = userService.loadUserByUsername(loginRequest.getUsername());
+//         final String token = jwtUtil.generateToken(userDetails.getUsername());
+
+//         User user = userService.getUserByUsername(loginRequest.getUsername());
+
+//         return ResponseEntity.ok(new LoginResponse(user.getId(), token, user.getUsername(), user.getEmail(), user.getRole()));
 //     }
 // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

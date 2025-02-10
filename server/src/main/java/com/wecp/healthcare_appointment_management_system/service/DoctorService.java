@@ -13,7 +13,7 @@ public class DoctorService {
     private DoctorRepository doctorRepository;
 
     public Doctor getDoctorById(Long doctorId) {
-        return doctorRepository.findByDoctorId(doctorId).orElseThrow();
+        return doctorRepository.getDoctorById(doctorId);
     }
 
     public List<Doctor> getAllDoctors() {
@@ -28,6 +28,7 @@ public class DoctorService {
         return doctorRepository.save(doctor);
     }
 }
+
 
 
 
