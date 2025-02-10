@@ -23,6 +23,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 
 public class RegisterAndLoginController {
+    String token = jwtUtil.generateToken(userDetails);  // Make sure generateToken expects UserDetails
+
 
 
     @Autowired
@@ -89,3 +91,63 @@ public class RegisterAndLoginController {
     }
     }
 }
+
+
+
+// package com.wecp.healthcare_appointment_management_system.controller;
+
+// import com.wecp.healthcare_appointment_management_system.entity.User;
+// import com.wecp.healthcare_appointment_management_system.service.UserService;
+// import com.wecp.healthcare_appointment_management_system.jwt.JwtUtil;
+// import com.wecp.healthcare_appointment_management_system.model.LoginRequest;
+// import com.wecp.healthcare_appointment_management_system.model.LoginResponse;
+
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.http.ResponseEntity;
+// import org.springframework.security.authentication.AuthenticationManager;
+// import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+// import org.springframework.security.core.Authentication;
+// import org.springframework.security.core.context.SecurityContextHolder;
+// import org.springframework.web.bind.annotation.*;
+
+// @RestController
+// @RequestMapping("/api/user")
+// public class RegisterAndLoginController {
+
+//     private UserService userService;
+
+//     @Autowired
+//     private AuthenticationManager authenticationManager;
+
+//     @Autowired
+//     private JwtUtil jwtUtil;
+
+//     @PostMapping("/register/patient")
+//     public ResponseEntity<User> registerPatient(@RequestBody User user) {
+//         user.setRole("PATIENT");
+//         User registeredUser = userService.registerUser(user);
+//         }
+
+//     @PostMapping("/register/doctor")
+//     public ResponseEntity<User> registerDoctor(@RequestBody User user) {
+//         user.setRole("DOCTOR");
+//         User registeredUser = userService.registerUser(user);
+//         return ResponseEntity.ok(registeredUser);
+//     }
+
+//     @PostMapping("/register/receptionist")
+//     public ResponseEntity<User> registerReceptionist(@RequestBody User user) {
+//         user.setRole("RECEPTIONIST");
+//         User registeredUser = userService.registerUser(user);
+//         return ResponseEntity.ok(registeredUser);
+//     }
+
+//     @PostMapping("/login")
+//     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
+//         Authentication authentication = authenticationManager.authenticate(
+//                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+//         SecurityContextHolder.getContext().setAuthentication(authentication);
+//         userService.getUserByUsername(loginRequest.getUsername());
+//         return ResponseEntity.ok(new LoginResponse(user.getId(), jwt, user.getUsername(), user.getEmail(), user.getRole()));
+//     }
+// }

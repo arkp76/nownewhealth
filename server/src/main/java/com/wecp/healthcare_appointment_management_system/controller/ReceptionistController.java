@@ -30,7 +30,7 @@ public class ReceptionistController {
                                                            @RequestParam Long doctorId,
                                                            @RequestBody TimeDto timeDto) {
         // schedule appointment
-        Appointment appointment = appointmentService.addAppointment(patientId, doctorId, timeDto.getTime());
+        Appointment appointment = appointmentService.bookAppointment(patientId, doctorId, timeDto.getTime());
         return ResponseEntity.ok(appointment);
     }
 

@@ -1,46 +1,30 @@
 package com.wecp.healthcare_appointment_management_system.entity;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 @Entity
 public class MedicalRecord {
-    // implement medical record entity
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String diagnosis;
-    private String treatment;
-    private LocalDateTime recordDate;
-    
     @ManyToOne
     private Patient patient;
 
     @ManyToOne
     private Doctor doctor;
 
-    //Constructor
-    public MedicalRecord(){
+    private String diagnosis;
+    private String treatment;
+    private LocalDateTime recordDate;
 
-    }
-    //Constructor
-    public MedicalRecord(Long id, Patient patient, Doctor doctor, String diagnosis, String treatment,
-            LocalDateTime recordDate) {
-        this.id = id;
-        this.patient = patient;
-        this.doctor = doctor;
-        this.diagnosis = diagnosis;
-        this.treatment = treatment;
-        this.recordDate = recordDate;
-    }
-    
-    
-    
-    //Getter Setter
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -84,10 +68,7 @@ public class MedicalRecord {
     public LocalDateTime getRecordDate() {
         return recordDate;
     }
-
-    public void setRecordDate(LocalDateTime recordDate) {
+       public void setRecordDate(LocalDateTime recordDate) {
         this.recordDate = recordDate;
     }
-
-
 }
