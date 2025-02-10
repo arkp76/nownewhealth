@@ -13,10 +13,10 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent //todo: complete missing code..
 {
-  itemForm: FormGroup;
+  itemForm!: FormGroup;
   formModel: any = {};
   showError: boolean = false;
-  errorMessage: string;
+  errorMessage: any;
 
   constructor(
     public router: Router,
@@ -24,6 +24,7 @@ export class LoginComponent //todo: complete missing code..
     private formBuilder: FormBuilder,
     private authService: AuthService
   ) {
+    // Initializes itemForm with form controls for username and password, both marked as required
     this.itemForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -31,41 +32,54 @@ export class LoginComponent //todo: complete missing code..
   }
 
   ngOnInit(): void {
-    // Additional initialization logic can be added here if needed
+    // Currently empty
   }
 
   onLogin() {
+    // Checks if the form is valid
     if (this.itemForm.valid) {
       const username = this.itemForm.controls['username'].value;
       const password = this.itemForm.controls['password'].value;
 
+      // Calls httpService.Login() with form values
       this.httpService.Login({ username, password }).subscribe(
-        (response: any) => {
-          // Assume the response contains role, token, and userId
+        response => {
+          // On success
+
+          // Assuming response contains role, token, and userId
           const { role, token, userId } = response;
-          this.authService.saveRole(role);
+
+          // Saves the role, token, and userId using AuthService
           this.authService.saveToken(token);
           this.authService.saveUserId(userId);
+          this.authService.SetRole(role);
 
+          // Navigates to the /dashboard route
           this.router.navigate(['/dashboard']).then(() => {
+            // Refreshes the page after a short delay
             setTimeout(() => {
               window.location.reload();
             }, 500);
           });
+
         },
         error => {
+          // On failure
           this.showError = true;
-          this.errorMessage = 'Invalid username or password. Please try again.';
+          this.errorMessage = 'Invalid username or password';
           console.error('Login error:', error);
         }
       );
+
     } else {
+      // Form is invalid
       this.showError = true;
-      this.errorMessage = 'Please fill out all required fields.';
+      this.errorMessage = 'Please fill in all required fields';
     }
   }
 
   registration() {
+    // Redirects to the /registration route
     this.router.navigate(['/registration']);
   }
 }

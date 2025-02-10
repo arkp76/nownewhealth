@@ -5,4 +5,7 @@ import javax.persistence.Entity;
 
 public class Receptionist extends User {
     // implement receptionist entity
+    public Receptionist() {
+        super();
+    }
 }

@@ -1,1 +1,67 @@
-//todo: complete missing code..
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header text-center">
+            <h4>Login</h4>
+          </div>
+          <div class="card-body">
+  
+            <!-- Error Message -->
+            <div *ngIf="showError" class="alert alert-danger">
+              {{ errorMessage }}
+            </div>
+  
+            <form [formGroup]="itemForm" (ngSubmit)="onLogin()">
+  
+              <!-- Username Field -->
+              <div class="form-group mb-3">
+                <label for="username">Username</label>
+                <input
+                  type="text"
+                  id="username"
+                  formControlName="username"
+                  class="form-control"
+                  placeholder="Enter username"
+                  [ngClass]="{ 'is-invalid': itemForm.get('username')?.invalid && (itemForm.get('username')?.dirty || itemForm.get('username')?.touched) }"
+                />
+                <div *ngIf="itemForm.get('username')?.invalid && (itemForm.get('username')?.dirty || itemForm.get('username')?.touched)" class="invalid-feedback">
+                  Username is required.
+                </div>
+              </div>
+  
+              <!-- Password Field -->
+              <div class="form-group mb-3">
+                <label for="password">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  formControlName="password"
+                  class="form-control"
+                  placeholder="Enter password"
+                  [ngClass]="{ 'is-invalid': itemForm.get('password')?.invalid && (itemForm.get('password')?.dirty || itemForm.get('password')?.touched) }"
+                />
+                <div *ngIf="itemForm.get('password')?.invalid && (itemForm.get('password')?.dirty || itemForm.get('password')?.touched)" class="invalid-feedback">
+                  Password is required.
+                </div>
+              </div>
+  
+              <!-- Submit Button -->
+              <button type="submit" class="btn btn-primary btn-block">Login</button>
+  
+            </form>
+  
+            <!-- Registration Link -->
+            <div class="mt-3 text-center">
+              <p>
+                Don't have an account?
+                <a (click)="registration()" class="text-primary" style="cursor: pointer;">Register here</a>
+              </p>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

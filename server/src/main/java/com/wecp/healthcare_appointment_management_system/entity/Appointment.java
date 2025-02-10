@@ -7,9 +7,9 @@ import java.time.LocalDateTime;
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY);
-   private Long id;
-    private String patient;
-    private String doctor;
+    private Long id;
+    // private String patient;
+    // private String doctor;
     private LocalDateTime appointmentTime;
     private String status;
  
@@ -19,6 +19,9 @@ public class Appointment {
     @ManyToOne
     private Doctor doctor;
  
+    public Appointment{
+
+    }
  
     public Long getId() {
         return id;
@@ -60,20 +63,20 @@ public class Appointment {
         this.status = status;
     }
  
-    public String getPatient() {
-        return patient;
-    }
+    // public String getPatient() {
+    //     return patient;
+    // }
  
-    public void setPatient(String patient) {
-        this.patient = patient;
-    }
+    // public void setPatient(String patient) {
+    //     this.patient = patient;
+    // }
  
-    public String getDoctor() {
-        return doctor;
-    }
+    // public String getDoctor() {
+    //     return doctor;
+    // }
  
-    public void setDoctor(String doctor) {
-        this.doctor = doctor;
-    }
+    // public void setDoctor(String doctor) {
+    //     this.doctor = doctor;
+    // }
  
 }

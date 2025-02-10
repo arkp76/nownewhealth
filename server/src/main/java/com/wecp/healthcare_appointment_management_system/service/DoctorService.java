@@ -15,7 +15,7 @@ public class DoctorService {
 
     public Doctor getDoctorById(Long doctorId)
     {
-        return doctorRepository.findByDoctorId(doctorId);
+        return doctorRepository.findByDoctorId(doctorId).orElseThrow();
     }
     public List<Doctor> getAllDoctors()  
     {

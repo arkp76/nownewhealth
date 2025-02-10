@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class MedicalRecord {
     // implement medical record entity
     @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String diagnosis;
@@ -20,7 +20,7 @@ public class MedicalRecord {
     @ManyToOne
     private Patient patient;
 
-    @Many ManyToOne
+    @ManyToOne
     private Doctor doctor;
 
     //Constructor

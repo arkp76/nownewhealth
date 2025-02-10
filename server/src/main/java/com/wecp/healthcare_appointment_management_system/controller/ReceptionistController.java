@@ -30,11 +30,15 @@ public class ReceptionistController {
                                                            @RequestParam Long doctorId,
                                                            @RequestBody TimeDto timeDto) {
         // schedule appointment
+        Appointment appointment = appointmentService.addAppointment(patientId, doctorId, timeDto.getTime());
+        return ResponseEntity.ok(appointment);
     }
 
     @PutMapping("/api/receptionist/appointment-reschedule/{appointmentId}")
     public ResponseEntity<Appointment> rescheduleAppointment(@PathVariable Long appointmentId,
                                                              @RequestBody TimeDto timeDto) {
         // reschedule appointment
+        Appointment appointment = appointmentService.rescheduleAppointment(appointmentId, timeDto.getTime());
+        return ResponseEntity.ok(appointment);
     }
 }

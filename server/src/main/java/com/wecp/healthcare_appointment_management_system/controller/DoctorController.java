@@ -22,17 +22,34 @@ public class DoctorController {
     @Autowired
     private AppointmentService appointmentService;
 
-    @GetMapping("/api/doctor/appointments")
-    public ResponseEntity<List<Appointment>> viewAppointments(@RequestParam Long doctorId) {
-        // view appointments
-        List<Appointment> appointment=appointmentService.getAppointmentById(doctorId);
-        return new ResponseEntity<>(appointment,HttpStatus.OK);
-    }
 
+
+    //1
+    // @GetMapping("/api/doctor/appointments")
+    // public ResponseEntity<List<Appointment>> viewAppointments(@RequestParam Long doctorId) {
+    //     // view appointments
+    //     List<Appointment> appointment=appointmentService.getAppointmentById(doctorId);
+    //     return new ResponseEntity<>(appointment,HttpStatus.OK);
+    // }
+
+    // @PostMapping("/api/doctor/availability")
+    // public ResponseEntity<Doctor> manageAvailability(@RequestParam Long doctorId, @RequestParam String availability) {
+    //     // manage availablity
+    //     List<Doctor> doctor=doctorService.updateAvailability(Long doctorId, String availability);
+    //     return new ResponseEntity<>(doctor,HttpStatus.OK);
+    // }
+
+
+    //2
     @PostMapping("/api/doctor/availability")
     public ResponseEntity<Doctor> manageAvailability(@RequestParam Long doctorId, @RequestParam String availability) {
-        // manage availablity
-        List<Doctor> doctor=doctorService.updateAvailability(Long doctorId, String availability);
-        return new ResponseEntity<>(doctor,HttpStatus.OK);
+        Doctor updatedDoctor = doctorService.updateAvailability(doctorId, availability);
+        return ResponseEntity.ok(updatedDoctor);
+    }
+
+    @GetMapping("/api/doctor/appointments")
+    public ResponseEntity<List<Appointment>> viewAppointments(@RequestParam Long doctorId) {
+        List<Appointment> appointments = appointmentService.getAppointmentsByDoctorId(doctorId);
+        return ResponseEntity.ok(appointments);
     }
 }

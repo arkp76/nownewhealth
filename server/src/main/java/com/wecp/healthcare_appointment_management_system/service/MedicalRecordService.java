@@ -19,6 +19,6 @@ private MedicalRecordRepository medicalRecordRepository;
 private PatientRepository patientRepository;
 
 public List<MedicalRecord> getMedicalRecordsByPatientId(Long patientId){
-    return medicalRecordRepository.getMedicalRecordByPatientId(patientId);
+    return medicalRecordRepository.findByPatientId(patientId);
 }
 }

@@ -30,7 +30,8 @@ public class PatientController {
     public ResponseEntity<List<Doctor>> getDoctors() {
         // get all doctors
         List<Doctor> doctors=doctorService.getAllDoctors();
-        return new ResponseEntity<>(doctors,HttpStatus.OK);
+        // return new ResponseEntity<>(doctors,HttpStatus.OK);
+        return ResponseEntity.ok(doctors);
         
     }
 
@@ -39,19 +40,23 @@ public class PatientController {
                                                  @RequestParam Long doctorId,
                                                  @RequestBody TimeDto timeDto) {
       // schedule appointment
+      Appointment appointment = appointmentService.addAppointment(patientId, doctorId, timeDto.getTime());
+        return ResponseEntity.ok(appointment);
     }
 
     @GetMapping("/api/patient/appointments")
     public ResponseEntity<List<Appointment>> getAppointmentsByPatientId(@RequestParam Long patientId) {
         // get appointments by patient id
          List<Appointment> appointments=appointmentService.getAllAppointments();
-        return new ResponseEntity<>(appointments,HttpStatus.OK);
+        //return new ResponseEntity<>(appointments,HttpStatus.OK);
+        return ResponseEntity.ok(appointments);
     }
 
     @GetMapping("/api/patient/medicalrecords")
     public ResponseEntity<List<MedicalRecord>> viewMedicalRecords(@RequestParam Long patientId) {
         // view medical records
          List<MedicalRecord> medicalRecords=medicalRecordService.getAppointmentsByPatientId();
-        return new ResponseEntity<>(medicalRecords,HttpStatus.OK);
+        // return new ResponseEntity<>(medicalRecords,HttpStatus.OK);
+        return ResponseEntity.ok(medicalRecords);
     }
 }

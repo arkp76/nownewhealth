@@ -18,17 +18,40 @@ public class AppointmentService {
     @Autowired
     private AppointmentRepository appointmentRepository;
 
-    public addAppointment(Appointment appointment)
-    {
+    @Autowired
+    private PatientRepository patientRepository;
+
+    @Autowired
+    private DoctorRepository doctorRepository;
+
+    public Appointment addAppointment(Long patientId, Long doctorId, Date appointmentTime) {
+        Patient patient = patientRepository.findById(patientId).orElseThrow();
+        Doctor doctor = doctorRepository.findById(doctorId).orElseThrow();
+
+        Appointment appointment = new Appointment();
+        appointment.setPatient(patient);
+        appointment.setDoctor(doctor);
+        appointment.setAppointmentTime(appointmentTime.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDateTime());
+        appointment.setStatus("Scheduled");
+
         return appointmentRepository.save(appointment);
     }
 
-    public getAllAppointments()
-    {
+    public List<Appointment> getAllAppointments() {
         return appointmentRepository.findAll();
     }
 
-    public getAppointmentById(Long doctorId){
-        return appointmentRepository.getAppointmentById(doctorId);
+    public List<Appointment> getAppointmentsByDoctorId(Long doctorId) {
+        return appointmentRepository.findByDoctorId(doctorId);
+    }
+
+    public List<Appointment> getAppointmentsByPatientId(Long patientId) {
+        return appointmentRepository.findByPatientId(patientId);
+    }
+
+    public Appointment rescheduleAppointment(Long appointmentId, Date newTime) {
+        Appointment appointment = appointmentRepository.findById(appointmentId).orElseThrow();
+        appointment.setAppointmentTime(newTime.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDateTime());
+        return appointmentRepository.save(appointment);
     }
 }

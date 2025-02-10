@@ -6,22 +6,21 @@ import java.util.Set;
 @Entity
 public class Doctor extends User {
    // implement doctor entity
-  @OneToMany(mappedBy = "doctor") 
-
-
+   @OneToMany(mappedBy = "doctor") 
    @JsonIgnore     
    private Set<Appointment> appointments;  
 
 
    @OneToMany(mappedBy = "doctor") 
-
-
    @JsonIgnore     
-   private Set<MedicalRecord> medicalRecords;      
+   private Set<MedicalRecord> medicalRecords;  
+
    private String specialty;     
    private String availability;
 
-
+   public Doctor() {
+        super();
+    }
 
    public Doctor(Set<Appointment> appointments, Set<MedicalRecord> medicalRecords, String specialty,
          String availability) {

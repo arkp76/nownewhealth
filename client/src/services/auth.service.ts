@@ -41,6 +41,7 @@ export class AuthService {
   logout(){
     localStorage.removeItem('token');
     localStorage.removeItem('role');
+    localStorage.removeItem('userId'); // Ensure userId is removed on logout
      this.token=null;
      this.isLoggedIn=false
    }
@@ -48,4 +49,10 @@ export class AuthService {
   
     localStorage.setItem('userId',userid);
   }
+
+  getUserId(): number | null {//for better encapsulation
+    const userIdString = localStorage.getItem('userId');
+    return userIdString ? parseInt(userIdString, 10) : null;
+  }
+
 }

@@ -26,4 +26,44 @@ public class SecurityConfig {
     // receptionists api can be accessed by RECEPTIONIST role
 
     // e.g hasAuthority("PATIENT") for /api/patient/doctors
+
+    private final UserDetailsService userDetailsService;
+    private final JwtRequestFilter jwtRequestFilter;
+    private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public SecurityConfig(UserDetailsService userDetailsService, JwtRequestFilter jwtRequestFilter, PasswordEncoder passwordEncoder) {
+        this.userDetailsService = userDetailsService;
+        this.jwtRequestFilter = jwtRequestFilter;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+                .authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/api/patient/register", "/api/doctors/register", "/api/receptionist/register", "/api/user/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/doctor/availability").hasAuthority("DOCTOR")
+                .antMatchers(HttpMethod.POST, "/api/patient/appointment").hasAuthority("PATIENT")
+                .antMatchers(HttpMethod.POST, "/api/receptionist/appointment").hasAuthority("RECEPTIONIST")
+                .antMatchers(HttpMethod.GET, "/api/patient/doctors", "/api/patient/appointments", "/api/patient/medicalrecords").hasAuthority("PATIENT")
+                .antMatchers(HttpMethod.GET, "/api/doctor/appointments").hasAuthority("DOCTOR")
+                .antMatchers(HttpMethod.GET, "/api/receptionist/appointments").hasAuthority("RECEPTIONIST")
+                .antMatchers(HttpMethod.PUT, "/api/receptionist/appointment-reschedule/{appointmentId}").hasAuthority("RECEPTIONIST")
+                .anyRequest().authenticated()
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 }

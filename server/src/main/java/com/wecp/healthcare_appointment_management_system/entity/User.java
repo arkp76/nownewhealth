@@ -8,9 +8,9 @@ import java.util.Set;
 public class User {
     // implement user entity
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;  //Primary Key and Auto Increment 
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private Long id;  //Primary Key and Auto Increment 
    private String username; 
    private String password; 
    private String role; // Role can be PATIENT,DOCTOR,RECEPTIONIST 
