@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<testsuite name="Chrome Headless 127.0.6533.99 (Linux x86_64)" package="" timestamp="2025-02-11T04:46:07" id="0" hostname="ip-172-31-21-16" tests="36" errors="0" failures="2" time="0.279">
+  <properties>
+    <property name="browser.fullName" value="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/127.0.6533.99 Safari/537.36"/>
+  </properties>
+  <testcase name="DoctorAppointmentComponent should create" time="0.043" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).DoctorAppointmentComponent"/>
+  <testcase name="DoctorAvailabilityComponent should create" time="0.016" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).DoctorAvailabilityComponent"/>
+  <testcase name="HttpService should be created" time="0.002" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should register a patient" time="0.003" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should register a doctor" time="0.002" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should register a receptionist" time="0.002" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should retrieve doctors" time="0.002" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should schedule an appointment" time="0.001" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should schedule an appointment by receptionist" time="0.001" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should reschedule an appointment" time="0.001" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should get all appointments" time="0.002" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should get appointments by doctor" time="0.001" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should get appointments by patient" time="0.001" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should update doctor availability" time="0.002" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should login user" time="0.002" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).HttpService"/>
+  <testcase name="LoginComponent should have invalid form if username and password are empty" time="0.032" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).LoginComponent"/>
+  <testcase name="LoginComponent should have invalid form if username or password is empty" time="0.008" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).LoginComponent"/>
+  <testcase name="LoginComponent should have valid form if username and password are provided" time="0.007" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).LoginComponent"/>
+  <testcase name="PatientAppointmentComponent should create" time="0.009" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).PatientAppointmentComponent"/>
+  <testcase name="ReceptionistAppointmentsComponent should create" time="0.015" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).ReceptionistAppointmentsComponent"/>
+  <testcase name="ReceptionistAppointmentsComponent should have an invalid form when empty" time="0.004" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).ReceptionistAppointmentsComponent"/>
+  <testcase name="ReceptionistAppointmentsComponent should validate form when id and time are provided" time="0.005" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).ReceptionistAppointmentsComponent">
+    <failure type="">Expected false to be truthy.
+    at &lt;Jasmine&gt;
+    at UserContext.apply (src/tests/receptionist-appointments.component.spec.ts:45:38)
+    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:372:26)
+    at ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:287:39)
+    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:371:52)
+</failure>
+  </testcase>
+  <testcase name="ReceptionistScheduleAppointmentsComponent should create" time="0.022" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).ReceptionistScheduleAppointmentsComponent"/>
+  <testcase name="ReceptionistScheduleAppointmentsComponent should have an invalid form when empty" time="0.004" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).ReceptionistScheduleAppointmentsComponent"/>
+  <testcase name="ReceptionistScheduleAppointmentsComponent should validate form when all fields are provided" time="0.005" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).ReceptionistScheduleAppointmentsComponent"/>
+  <testcase name="RegistrationComponent should have invalid form if any field is empty" time="0.039" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).RegistrationComponent"/>
+  <testcase name="RegistrationComponent should have invalid form if email is invalid" time="0.006" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).RegistrationComponent"/>
+  <testcase name="RegistrationComponent should have valid form if all fields are filled correctly" time="0.005" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).RegistrationComponent"/>
+  <testcase name="RegistrationComponent should set specialty and availability validators when role is DOCTOR" time="0.004" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).RegistrationComponent"/>
+  <testcase name="RegistrationComponent should clear specialty and availability validators when role is not DOCTOR" time="0.004" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).RegistrationComponent"/>
+  <testcase name="ScheduleAppointmentComponent should create" time="0.01" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).ScheduleAppointmentComponent"/>
+  <testcase name="ScheduleAppointmentComponent should have an invalid form when empty" time="0.003" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).ScheduleAppointmentComponent"/>
+  <testcase name="ScheduleAppointmentComponent should validate patientId as required" time="0.004" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).ScheduleAppointmentComponent"/>
+  <testcase name="ScheduleAppointmentComponent should validate doctorId as required" time="0.004" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).ScheduleAppointmentComponent"/>
+  <testcase name="ScheduleAppointmentComponent should validate time as required" time="0.004" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).ScheduleAppointmentComponent"/>
+  <testcase name="ScheduleAppointmentComponent should have a valid form when all fields are filled" time="0.004" classname="Chrome_Headless_127_0_6533_99_(Linux_x86_64).ScheduleAppointmentComponent">
+    <failure type="">Expected false to be truthy.
+    at &lt;Jasmine&gt;
+    at UserContext.apply (src/tests/schedule-appointment.component.spec.ts:73:38)
+    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:372:26)
+    at ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:287:39)
+    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:371:52)
+</failure>
+  </testcase>
+  <system-out>
+    <![CDATA[Chrome Headless 127.0.6533.99 (Linux x86_64) ERROR: 'User ID not found or invalid in localStorage.'
+,Chrome Headless 127.0.6533.99 (Linux x86_64) ERROR: 'User ID not found or invalid in localStorage.'
+,Chrome Headless 127.0.6533.99 (Linux x86_64) WARN: '
+  It looks like you're using ngModel on the same form field as formControlName.
+  Support for using the ngModel input property and ngModelChange event with
+  reactive form directives has been deprecated in Angular v6 and will be removed
+  in a future version of Angular.
+
+  For more information on this, see our API docs here:
+  https://angular.io/api/forms/FormControlName#use-with-ngmodel
+  '
+
+]]>
+  </system-out>
+  <system-err/>
+</testsuite>

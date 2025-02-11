@@ -8,3 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface ReceptionistRepository extends JpaRepository<Receptionist, Long>{
 
 }
+
+
+

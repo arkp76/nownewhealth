@@ -31,7 +31,7 @@ public class JwtUtil {
     public String generateToken(String username) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + expiration * 1000);
-        Optional<User> optionalUser = userRepository.findByUsername(username);
+        User optionalUser = userRepository.findByUsername(username);
 
         if (!optionalUser.isPresent()) {
             throw new RuntimeException("User not found");
@@ -98,11 +98,3 @@ public class JwtUtil {
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 }
-
-
-
-
-
-
-
-
