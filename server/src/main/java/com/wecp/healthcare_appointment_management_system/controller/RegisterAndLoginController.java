@@ -1,6 +1,4 @@
-
 package com.wecp.healthcare_appointment_management_system.controller;
-
 
 import com.wecp.healthcare_appointment_management_system.dto.LoginRequest;
 import com.wecp.healthcare_appointment_management_system.dto.LoginResponse;
@@ -34,7 +32,6 @@ public class RegisterAndLoginController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-
     @PostMapping("/api/patient/register")
     public ResponseEntity<Patient> registerPatient(@RequestBody Patient patient) {
         Patient registeredPatient = userService.registerPatient(patient);
@@ -43,15 +40,34 @@ public class RegisterAndLoginController {
 
     @PostMapping("/api/doctors/register")
     public ResponseEntity<Doctor> registerDoctor(@RequestBody Doctor doctor) {
-        Doctor registerDoctor = userService.registerDoctor(doctor);
-        return new ResponseEntity<>(registerDoctor, HttpStatus.CREATED);
+        Doctor registeredDoctor = userService.registerDoctor(doctor);
+        return new ResponseEntity<>(registeredDoctor, HttpStatus.CREATED);
     }
 
     @PostMapping("/api/receptionist/register")
     public ResponseEntity<Receptionist> registerReceptionist(@RequestBody Receptionist receptionist) {
-        Receptionist registerReceptionist = userService.registerReceptionist(receptionist);
-        return new ResponseEntity<>(registerReceptionist, HttpStatus.CREATED);
+        Receptionist registeredReceptionist = userService.registerReceptionist(receptionist);
+        return new ResponseEntity<>(registeredReceptionist, HttpStatus.CREATED);
     }
+
+    // @PostMapping("/api/user/login")
+    // public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest loginRequest) {
+    //     try {
+    //         authenticationManager.authenticate(
+    //                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
+    //         );
+    //     } catch (AuthenticationException e) {
+    //         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid username or password", e);
+    //     }
+
+    //     final UserDetails userDetails = userService.loadUserByUsername(loginRequest.getUsername());
+    //     final String token = jwtUtil.generateToken(userDetails.getUsername());
+
+    //     User user = userService.getUserByUsername(loginRequest.getUsername());
+
+    //     return ResponseEntity.ok(new LoginResponse(user.getId(), token, user.getUsername(), user.getEmail(), user.getRole()));
+    // }
+
 
     @PostMapping("/api/user/login")
     public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest loginRequest) {
@@ -60,17 +76,19 @@ public class RegisterAndLoginController {
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
             );
         } catch (AuthenticationException e) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid username or password", e);
+            return ResponseEntity.status(401).build();
         }
-
+    
         final UserDetails userDetails = userService.loadUserByUsername(loginRequest.getUsername());
         final String token = jwtUtil.generateToken(userDetails.getUsername());
-
+    
         User user = userService.getUserByUsername(loginRequest.getUsername());
-
-        return ResponseEntity.ok(new LoginResponse(user.getId(),token, user.getUsername(), user.getEmail(), user.getRole()));
+    
+        return ResponseEntity.ok(new LoginResponse(user.getId(), token, user.getUsername(), user.getEmail(), user.getRole()));
     }
+
+
+
+
+
 }
-
-
-

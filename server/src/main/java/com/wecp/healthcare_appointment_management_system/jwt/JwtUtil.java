@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @Component
 public class JwtUtil {
@@ -25,19 +24,13 @@ public class JwtUtil {
     }
 
     private final String secret = "secretKey000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
-
+// private final String secret = "alpha";
     private final int expiration = 86400;
 
     public String generateToken(String username) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + expiration * 1000);
-        User optionalUser = userRepository.findByUsername(username);
-
-        if (!optionalUser.isPresent()) {
-            throw new RuntimeException("User not found");
-        }
-
-        User user = optionalUser.get();
+        User user = userRepository.findByUsername(username);
 
         Map<String, Object> claims = new HashMap<>();
         claims.put("sub", username);
@@ -51,16 +44,6 @@ public class JwtUtil {
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
-
-        // return Jwts.builder()
-        //                 .setSubject(username)
-        //                 .setClaims(claims)
-        //                 .setIssuedAt(new Date())
-        //                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 hours expiry
-        //                 .signWith(SignatureAlgorithm.HS512, secret)
-        //                 .compact();
-
-
     }
 
     public Claims extractAllClaims(String token) {

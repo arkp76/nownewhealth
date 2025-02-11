@@ -1,15 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
 package com.wecp.healthcare_appointment_management_system.jwt;
 
 
@@ -78,4 +66,3 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 }
-

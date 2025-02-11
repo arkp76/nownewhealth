@@ -1,7 +1,7 @@
 
-
 package com.wecp.healthcare_appointment_management_system.controller;
 
+import com.wecp.healthcare_appointment_management_system.dto.TimeDto;
 import com.wecp.healthcare_appointment_management_system.entity.Appointment;
 import com.wecp.healthcare_appointment_management_system.entity.Doctor;
 import com.wecp.healthcare_appointment_management_system.entity.MedicalRecord;
@@ -11,9 +11,8 @@ import com.wecp.healthcare_appointment_management_system.service.MedicalRecordSe
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.Date;
-
-
 import java.util.List;
 
 @RestController
@@ -36,8 +35,8 @@ public class PatientController {
     }
 
     @PostMapping("/appointment")
-    public ResponseEntity<Appointment> bookAppointment(@RequestParam Long patientId, @RequestParam Long doctorId, @RequestParam Date appointmentTime) {
-        Appointment appointment = appointmentService.bookAppointment(patientId, doctorId, appointmentTime);
+    public ResponseEntity<Appointment> bookAppointment(@RequestParam Long patientId, @RequestParam Long doctorId, @RequestBody TimeDto appointmentTime) {
+        Appointment appointment = appointmentService.bookAppointment(patientId, doctorId, appointmentTime.getTime());
         return ResponseEntity.ok(appointment);
     }
 

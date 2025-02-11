@@ -1,5 +1,4 @@
 
-
 package com.wecp.healthcare_appointment_management_system.service;
 
 import com.wecp.healthcare_appointment_management_system.entity.Appointment;
@@ -61,8 +60,4 @@ public class AppointmentService {
         return appointmentRepository.save(appointment);
     }
 }
-
-
-
-
 
