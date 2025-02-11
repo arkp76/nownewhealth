@@ -24,10 +24,10 @@ export class ScheduleAppointmentComponent implements OnInit//todo: complete miss
     private authService: AuthService
   ) {
     this.itemForm = this.formBuilder.group({
-      doctorId: ['', Validators.required],
-      patientId: ['', Validators.required],
-      date: ['', Validators.required],
-      time: ['', Validators.required]
+      doctorId: ['', [Validators.required]],
+      patientId: ['', [Validators.required]],
+      date: [''],
+      time: ['', [Validators.required]]
     });
   }
 

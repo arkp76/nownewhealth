@@ -116,14 +116,18 @@
        </div>
        <div class="card-body">
          <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
-           <input type="hidden" formControlName="id" />
+           <!-- <input type="hidden" formControlName="id" /> -->
+
+           
    
            <!-- Patient ID -->
            <div class="form-group">
              <label for="patientId">Patient ID</label>
              <input type="number" id="patientId" class="form-control" formControlName="patientId" />
              <div *ngIf="itemForm.get('patientId')?.invalid && itemForm.get('patientId')?.touched" class="text-danger">
+              <small *ngIf="itemForm.get('patientId')?.hasError('required')">
                Patient ID is required.
+              </small>
              </div>
            </div>
    
@@ -141,7 +145,9 @@
              <label for="time">Appointment Time</label>
              <input type="datetime-local" id="time" class="form-control" formControlName="time" />
              <div *ngIf="itemForm.get('time')?.invalid && itemForm.get('time')?.touched" class="text-danger">
+              <small *ngIf="itemForm.get('time')?.hasError('required')">
                Appointment time is required.
+              </small>
              </div>
            </div>
    

@@ -31,6 +31,7 @@ export class HttpService {
 
   ScheduleAppointment(appointmentData: any): Observable<any> {
     const { patientId, doctorId } = appointmentData;
+    console.log("Hiii");
     return this.http.post(
       `${this.serverName}/api/patient/appointment?patientId=${patientId}&doctorId=${doctorId}`,
       appointmentData,
